@@ -22,6 +22,11 @@ func NewPayService(repo domain.PayStorage) DefaultPayService {
 }
 
 func (s DefaultPayService) Pay(req dto.RequestPay) (msg string, err *errs.AppError) {
+	err = req.Validate()
+	if err != nil {
+		return msg, err
+	}
+
 	r := domain.NewPay(req.DocumentoIdentificacion, req.CodigoInmueble, req.ValorPagado, req.FechaPago)
 
 	message, err := s.repo.InsertPay(r)
