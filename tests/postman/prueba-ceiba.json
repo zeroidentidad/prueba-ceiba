@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "40418e4a-56ad-4df5-bf55-7784d763df50",
+		"name": "prueba-ceiba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/pagos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/pagos",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pagos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"documentoIdentificacionArrendatario\": \"1036946622\",\n    \"codigoInmueble\": \"8870\",\n    \"valorPagado\": \"500000\",\n    \"fechaPago\": \"25/09/2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/pagos",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
