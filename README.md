@@ -12,8 +12,8 @@
 
 - Ejecución preparando entorno: `./air.sh`
 
-![demo run air](./.img/air.png)
-![demo exit air](./.img/air_exit.png)
+![demo run air](./x.img/air.png)
+![demo exit air](./x.img/air_exit.png)
 
 - Ejecución directa sin esperar instancia db: `go run .`
 
