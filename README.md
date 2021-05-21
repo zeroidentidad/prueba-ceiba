@@ -19,4 +19,4 @@
 
 - **Tests**: `./tests/routes_test.go`
 
-![demo test Post](./.img/test.png)
+![demo test Post](./x.img/test.png)
