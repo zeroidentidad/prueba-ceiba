@@ -4,12 +4,14 @@ API para pagos de arrendamientos
 
 - Bajar dependencias: `go mod vendor`
 
-- Configuraciones necesarias editar: `.env`
+- Configuraciones necesarias: `.env`
 
-- Contenedor BD desarrollo: `docker-compose up -d`
+- Contenedor DB: `docker-compose up -d`
 
-- Para iniciar con hot-reload: `air` [Binario gopath: https://github.com/cosmtrek/air]
+- Importar DB: `./db.sh`
 
-- Ejecución directa: `go run .`
+- Para iniciar con hot-reload: `air` [Binario: https://github.com/cosmtrek/air]
 
 - Ejecución preparando entorno: `./air.sh`
+
+- Ejecución directa sin esperar instancia db: `go run .`
