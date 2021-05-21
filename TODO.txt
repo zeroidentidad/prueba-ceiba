@@ -1,6 +1,0 @@
-
-
-
-Tests: 
-
-- Construir pruebas unitarias automatizadas de la lógica de negocio con alguna de las siguientes herramientas dependiendo del lenguaje: junit(java), jest (node), golang testing (golang) o unittest (phyton).

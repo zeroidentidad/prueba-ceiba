@@ -1,6 +1,4 @@
-# prueba-ceiba
-
-API para pagos de arrendamientos
+# Prueba ceiba: *API para pagos de arrendamientos*
 
 - Bajar dependencias: `go mod vendor`
 
@@ -8,10 +6,17 @@ API para pagos de arrendamientos
 
 - Contenedor DB: `docker-compose up -d`
 
-- Importar DB: `./db.sh`
+- **Importar DB**: `./db.sh`
 
 - Para iniciar con hot-reload: `air` [Binario: https://github.com/cosmtrek/air]
 
 - Ejecución preparando entorno: `./air.sh`
 
+![demo run air](./.img/air.png)
+![demo exit air](./.img/air_exit.png)
+
 - Ejecución directa sin esperar instancia db: `go run .`
+
+- **Tests**: `./tests/routes_test.go`
+
+![demo test Post](./.img/test.png)

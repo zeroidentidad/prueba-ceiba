@@ -10,17 +10,15 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-func routes(prefix string) *fiber.App {
-	router := fiber.New()
-	router.Use(logger.New())
-	router.Use(cors.New(cors.Config{AllowCredentials: true}))
-
+func Routes(app *fiber.App) {
 	db := dbclient()
 	payStorage := domain.NewPayStorageDb(db)
 	hp := handlers.HandlerPay{Svc: service.NewPayService(payStorage)}
 
-	router.Post(prefix+"/pagos", hp.Pay)
-	router.Get(prefix+"/pagos", hp.Payments)
+	app.Use(logger.New())
+	app.Use(cors.New(cors.Config{AllowCredentials: true}))
 
-	return router
+	route := app.Group("/api")
+	route.Post("/pagos", hp.Pay)
+	route.Get("/pagos", hp.Payments)
 }
