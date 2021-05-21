@@ -1,6 +1,7 @@
 package service
 
 import (
+	"payments/domain"
 	"payments/dto"
 	"payments/errs"
 )
@@ -20,8 +21,8 @@ func NewPayService(repo domain.PayStorage) DefaultPayService {
 	}
 }
 
-func (s DefaultRoleService) Pay(req dto.RequestPay) (msg string, err *errs.AppError) {
-	r := domain.NewPay(req.ID, req.Name)
+func (s DefaultPayService) Pay(req dto.RequestPay) (msg string, err *errs.AppError) {
+	r := domain.NewPay(req.DocumentoIdentificacion, req.CodigoInmueble, req.ValorPagado, req.FechaPago)
 
 	message, err := s.repo.InsertPay(r)
 	if err != nil {

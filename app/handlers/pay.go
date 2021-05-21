@@ -3,12 +3,13 @@ package handlers
 import (
 	"net/http"
 	"payments/dto"
+	"payments/service"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type HandlerPay struct {
-	Svc service.RoleService
+	Svc service.PayService
 }
 
 func (h *HandlerPay) Pay(c *fiber.Ctx) error {

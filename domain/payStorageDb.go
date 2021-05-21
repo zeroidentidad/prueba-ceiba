@@ -32,7 +32,7 @@ func (d PayStorageDb) InsertPay(pay Pay) (string, *errs.AppError) {
 }
 
 func (d PayStorageDb) SelectPayments() (*[]Pay, *errs.AppError) {
-	s := `SELECT * FROM pagos`
+	s := `SELECT documentoIdentificacionArrendatario, codigoInmueble, valorPagado, fechaPago FROM pagos`
 	payments := make([]Pay, 0)
 
 	err := d.client.Select(&payments, s)

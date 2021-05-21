@@ -17,7 +17,7 @@ func dbclient() *sqlx.DB {
 	port := os.Getenv("DB_PORT")
 	name := os.Getenv("DB_NAME")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4", usr, pass, addr, port, name)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true", usr, pass, addr, port, name)
 	client, err := sqlx.Open("mysql", dsn)
 	if err != nil {
 		logs.Fatal(err.Error())
