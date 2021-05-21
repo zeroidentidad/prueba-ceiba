@@ -29,12 +29,18 @@ func (s DefaultPayService) Pay(req dto.RequestPay) (msg string, err *errs.AppErr
 
 	r := domain.NewPay(req.DocumentoIdentificacion, req.CodigoInmueble, req.ValorPagado, req.FechaPago)
 
-	message, err := s.repo.InsertPay(r)
-	if err != nil {
-		return msg, err
+	paychecks := s.repo.PayChecks(r)
+	msg = paychecks.PayMessage(r.ValorPagado)
+	if !paychecks.PayComplete() {
+		err := s.repo.InsertPay(r)
+		if err != nil {
+			return msg, err
+		}
+	} else {
+		msg = "no procede pago, su mensualidad ya esta pagada comenpletamente"
 	}
 
-	return message, err
+	return msg, err
 }
 
 func (s DefaultPayService) Payments() (*[]dto.ResponsePay, *errs.AppError) {

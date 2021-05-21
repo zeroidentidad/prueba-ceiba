@@ -1,21 +1,4 @@
 
-En BD:
-
-- El valor del arriendo total mensual para todos los arrendatarios es de 1000000 (1 millón).
-
-- Si el pago se hace total es decir 1000000 (1 millón) la respuesta de la operación deberá ser “gracias por pagar todo tu arriendo”.
-
-- Si el pago se hace parcial es decir menos de 1000000 (1 millón) la respuesta de la operación deberá ser “gracias por tu abono, sin embargo recuerda que te hace falta pagar ${poner acá el valor restante}”.
-
-- Si el pago se hace por el valor restante la respuesta de la operación deberá ser “gracias por pagar todo tu arriendo”.
-
-
-
-
-
-
-
-
 
 
 Tests: 

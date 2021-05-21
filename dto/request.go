@@ -4,6 +4,7 @@ import (
 	"payments/errs"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -15,29 +16,34 @@ type RequestPay struct {
 }
 
 func (r RequestPay) Validate() *errs.AppError {
-	var validaciones string
+	var validaciones strings.Builder
 	alfanumeric, _ := regexp.Match(`^[a-zA-Z0-9]*$`, []byte(r.CodigoInmueble))
 	numeric, _ := regexp.Match(`^[0-9]*$`, []byte(r.DocumentoIdentificacion))
 	date, date_err := time.Parse("02/01/2006", r.FechaPago)
-	// date_format, _ := regexp.Match(`\d{1,2}/\d{1,2}/\d{4}`, []byte(r.FechaPago))
+	// date, _ := regexp.Match(`\d{1,2}/\d{1,2}/\d{4}`, []byte(r.FechaPago))
 	valorPagado, _ := strconv.Atoi(r.ValorPagado)
 
 	if !alfanumeric {
-		validaciones += "\n'documentoIdentificacionArrendatario' debe ser solo númerico"
-	} else if !numeric {
-		validaciones += "\n'codigoInmueble' debe ser alfanúmerico"
-	} else if valorPagado < 1 || valorPagado > 1000000 {
-		validaciones += "\n'valorPagado' deberá estar entre 1 y 1000000"
-	} else if date_err != nil {
-		validaciones += "\n'fechaPago' formato de fecha incorrecto"
-	} else if date.Year() != time.Now().Year() {
-		validaciones += "\n'fechaPago' debe ser fecha válida existente en el calendario"
-	} else if date.Day()%2 == 0 {
-		validaciones += "\n'fechaPago' lo siento pero no se puede recibir el pago este día por decreto de administración"
+		validaciones.WriteString(`“documentoIdentificacionArrendatario” debe ser solo númerico `)
+	}
+	if !numeric {
+		validaciones.WriteString(`“codigoInmueble” debe ser alfanúmerico `)
+	}
+	if valorPagado < 1 || valorPagado > 1000000 {
+		validaciones.WriteString(`“valorPagado” deberá estar entre 1 y 1000000 `)
+	}
+	if date_err != nil {
+		validaciones.WriteString(`“fechaPago” formato de fecha incorrecto `)
+	}
+	if date.Year() != time.Now().Year() {
+		validaciones.WriteString(`“fechaPago” debe ser fecha válida existente en el calendario `)
+	}
+	if date.Day()%2 == 0 {
+		validaciones.WriteString(`“fechaPago” lo siento pero no se puede recibir el pago este día por decreto de administración `)
 	}
 
-	if validaciones != "" {
-		return errs.NewBadRequestError(validaciones)
+	if validaciones.String() != "" {
+		return errs.NewBadRequestError(validaciones.String())
 	}
 
 	return nil

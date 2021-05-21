@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"fmt"
 	"payments/dto"
 	"payments/errs"
 	"strconv"
@@ -14,8 +15,15 @@ type Pay struct {
 	FechaPago               time.Time `db:"fechaPago"`
 }
 
+type PayCheck struct {
+	Pagado   int `db:"pagado"`
+	Restante int `db:"restante"`
+	Abonos   int `db:"abonos"`
+}
+
 type PayStorage interface {
-	InsertPay(Pay) (string, *errs.AppError)
+	InsertPay(Pay) *errs.AppError
+	PayChecks(Pay) *PayCheck
 	SelectPayments() (*[]Pay, *errs.AppError)
 }
 
@@ -41,4 +49,25 @@ func (p Pay) ToDto() dto.ResponsePay {
 		ValorPagado:             valorPagado,
 		FechaPago:               fechaPago,
 	}
+}
+
+func (p PayCheck) PayMessage(pago int) string {
+	if p.Restante == 1000000 && p.Abonos == 0 && pago == 1000000 {
+		return "gracias por pagar todo tu arriendo"
+	}
+	if p.Restante > 0 && p.Abonos >= 0 && pago+p.Pagado < 1000000 {
+		return fmt.Sprintf("gracias por tu abono, sin embargo recuerda que te hace falta pagar $%d", p.Restante-pago)
+	}
+	if p.Restante > 0 && p.Abonos >= 0 && pago+p.Pagado == 1000000 {
+		return "gracias por pagar todo tu arriendo"
+	}
+
+	return ""
+}
+
+func (p PayCheck) PayComplete() bool {
+	if p.Restante == 0 && p.Abonos > 0 {
+		return true
+	}
+	return false
 }
